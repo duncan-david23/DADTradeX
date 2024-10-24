@@ -10,7 +10,7 @@ const Exchange = () => {
 
         <Sidebar/>
 
-        <div className='ml-[299px] mt-[75px]'>
+        <div className='ml-[250px] mt-[75px]'>
           <h1>Exchange</h1>
         </div>
         

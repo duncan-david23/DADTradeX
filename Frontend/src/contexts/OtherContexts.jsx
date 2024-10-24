@@ -1,4 +1,4 @@
-import React, { createContext } from 'react';
+import React, { createContext, useState } from 'react';
 
 
 export const dataContext = createContext();
@@ -6,11 +6,12 @@ export const dataContext = createContext();
 
 export const DataContextProvider = ({children})=> {
 
-
-        const text1 = 'hello there'
+    const [activeMenu, setActiveMenu] = useState(false)
+    
 
     const dataValues ={
-        text1,
+        activeMenu,
+        setActiveMenu
     }
 
 

@@ -10,8 +10,8 @@ const LogIn = () => {
   
   const [formData, setFormData] = useState({
     username: '',
-    email: '',
-    password: '',
+    email: 'duncan.david600@gmail.com',
+    password: 'Derealboys23',
     password2: ''
   });
   const [msg, setMsg] = useState('')
