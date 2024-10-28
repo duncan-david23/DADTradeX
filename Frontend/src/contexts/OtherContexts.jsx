@@ -6,7 +6,7 @@ export const dataContext = createContext();
 
 export const DataContextProvider = ({children})=> {
 
-    const [activeMenu, setActiveMenu] = useState(false)
+    const [activeMenu, setActiveMenu] = useState(true)
     
 
     const dataValues ={

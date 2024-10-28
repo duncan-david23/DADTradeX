@@ -6,6 +6,8 @@ import Sidebar from '../components/Sidebar'
 import TopNav from '../components/TopNav'
 import appleLogo from '../assets/appleLogo.png'
 import {stockData} from '../assets/data'
+import Transactions from '../components/Transactions'
+import PortfolioChart from '../components/PortfolioChart'
 
 const Dashboard = () => {
   const {dataValues} = useContext(dataContext);
@@ -15,7 +17,6 @@ const Dashboard = () => {
   console.log(copyOfStkDta);
   const portfolioData = stockData.slice(0,6)
   
-
   
 
   return (
@@ -50,10 +51,10 @@ const Dashboard = () => {
 
                    return ( 
                       
-                    
+                    <Link to='i-details/1'>
                     <div key={item.id} className='w-[200px] h-[100px] shadow-lg rounded-lg bg-gray-50 px-[15px] py-[10px] cursor-pointer hover:bg-gray-100'>
                     <div className='flex gap-[10px] items-center'>
-                      <div className='bg-gray-200 p-[7px] rounded-full'>
+                      <div className='bg-white p-[7px] rounded-full'>
                       <img src={item.img} alt="" className='w-[30px]' />
                       </div>
                       <div>
@@ -68,6 +69,7 @@ const Dashboard = () => {
                     </div>
 
                   </div>
+                  </Link>
 
                   )})}
 
@@ -81,7 +83,10 @@ const Dashboard = () => {
               <div className='flex justify-between mt-[100px] mr-[30px]'>
 
                 <div>
-                  <p>Chart</p>
+                <p className='text-xm px-[5px] py-[5px]  font-bold mt-[-35px]'>Portfolio Performance</p>
+                  <div className={`${activeMenu ? 'w-[730px]' : 'w-[860px]'} h-[430px]  rounded-lg p-[15px]`}>
+                      <PortfolioChart/>
+                  </div>
                 </div>
 
                 <div className='w-[300px] h-fit shadow-sm rounded-lg bg-gray-50 px-[15px] py-[10px] cursor-pointer'>
@@ -94,7 +99,7 @@ const Dashboard = () => {
                       <div key={portfItem.id} className=' flex justify-between items-center py-[5px]'>
                         
                       <div className='flex gap-[15px] items-center'>
-                          <div className='bg-gray-200 p-[7px] rounded-full w-[40px]'>
+                          <div className=' p-[7px] rounded-full w-[40px]'>
                             <img src={portfItem.img} alt="" className='w-[30px]' />
                           </div>
                         <div>
@@ -116,6 +121,11 @@ const Dashboard = () => {
 
                 </div>
 
+
+              </div>
+
+              <div className='mt-[100px] mb-[30px]'>
+                  <Transactions/>
 
               </div>
 

@@ -10,8 +10,8 @@ const LogIn = () => {
   
   const [formData, setFormData] = useState({
     username: '',
-    email: 'duncan.david600@gmail.com',
-    password: 'Derealboys23',
+    email: 'demo@gmail.com',
+    password: 'demo123',
     password2: ''
   });
   const [msg, setMsg] = useState('')
@@ -39,7 +39,7 @@ const LogIn = () => {
         setMsg('');
         
         login();
-        navigate('/dashboard');
+        navigate('/dashboard/1');
       }
     } catch (error) {
       console.error('There was an error during sign-up:', error);  // Handle any errors

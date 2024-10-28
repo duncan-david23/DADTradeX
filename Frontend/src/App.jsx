@@ -10,6 +10,8 @@ import { DataContextProvider } from './contexts/OtherContexts.jsx';
 import BlognNews from './pages/BlognNews.jsx';
 import Exchange from './pages/Exchange.jsx';
 import Market from './pages/Market.jsx';
+import IndPage from './pages/IndPage.jsx';
+
 
 const App = () => {
   return (
@@ -23,9 +25,10 @@ const App = () => {
           <Route path="/blog" element={<BlognNews />} />
           <Route path="/exchange" element={<Exchange />} />
           <Route path="/market" element={<Market />} />
+          <Route path="/dashboard/:id/i-details/:id" element={<IndPage />} />
           
           {/* Protect the dashboard route */}
-          <Route path="/dashboard" element={<ProtectedRoute element={<Dashboard />} />} />
+          <Route path="/dashboard/:id" element={<ProtectedRoute element={<Dashboard />} />} />
           
         </Routes>
       </Router>

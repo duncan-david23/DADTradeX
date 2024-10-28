@@ -25,7 +25,7 @@ const Sidebar = () => {
   return (
     <div className={`${activeMenu ? 'w-60':'w-30' } transition-all overflow-y-auto min-h-screen flex flex-col justify-between px-[10px] py-[15px] fixed top-0 left-0 bg-purple-50` } style={{zIndex:'1000'}}>
       <div className=' flex gap-[8px] items-center justify-between'>
-        <Link to='/dashboard'>
+        <Link to='/dashboard/1'>
           <h1><span className='text-xs md:text-xl font-bold text-purple-800 cursor-pointer'>{`${activeMenu ? 'DADTradeX' : 'DTX'}`}</span> </h1>
           </Link>
           {
@@ -43,7 +43,7 @@ const Sidebar = () => {
             <p className={`${activeMenu ? 'ml-[20px]' : 'ml-[10px]'}  text-xs opacity-40 font-semibold`}>MENU </p>
             <div className='py-[10px] px-[15px] font-semibold hover:text-purple-700 mt-[15px] '>
                 
-                <NavLink to='/dashboard' className={({isActive})=> ` flex gap-[15px] items-center ${isActive ? 'activeBg': ''} `}>
+                <NavLink to='/dashboard/1' className={({isActive})=> ` flex gap-[15px] items-center ${isActive ? 'activeBg': ''} `}>
                 <RxDashboard className='text-lg '/>
                 {activeMenu ? 
                 <p>Dashboard</p>

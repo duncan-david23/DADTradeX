@@ -38,7 +38,6 @@ const LogIn = () => {
       console.log(response.data);  // Handle the response from the server (e.g., success message)
       if(response.data.message === 'user has been successfully registered'){
         setMsg('')
-        navigate('/dashboard');
       }
     } catch (error) {
       console.error('There was an error during sign-up:', error);  // Handle any errors
