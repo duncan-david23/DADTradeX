@@ -7,7 +7,8 @@ import TopNav from '../components/TopNav'
 import appleLogo from '../assets/appleLogo.png'
 import {stockData} from '../assets/data'
 import Transactions from '../components/Transactions'
-import PortfolioChart from '../components/PortfolioChart'
+import Chart from '../components/Chart'
+import {stockPrices} from '../assets/data';
 
 const Dashboard = () => {
   const {dataValues} = useContext(dataContext);
@@ -16,6 +17,50 @@ const Dashboard = () => {
   const copyOfStkDta = stockData.slice(0,3);
   console.log(copyOfStkDta);
   const portfolioData = stockData.slice(0,6)
+
+  const portFdata = {
+    labels: stockPrices.map(item=> item.time),
+    datasets: [
+      {
+        label: 'Portfolio',
+        data: stockPrices.map(item=> item.price),
+        fill: true,
+        backgroundColor: 'rgba(147, 112, 219, 0.3)',
+        borderColor: 'rgba(147, 112, 219, 0.5)',
+        tension:0.1
+      }
+    ]
+  };
+
+  const portFoptions = {
+    responsive:true,
+    plugins: {
+      legend: {
+        position: "top",
+        display: false
+      },
+      title: {
+        display: false,
+        text: 'Portfolio Performance'
+      },
+    },
+    scales: { 
+      x: { 
+        display: false,
+        beginAtZero: true,
+        grid: {
+          display: false
+        }
+      }, 
+      y: { 
+        position: 'right',
+        grid: {
+          display: false // Hides the grid lines for the y-axis
+      }
+      } 
+  }
+      
+  };
   
   
 
@@ -85,7 +130,7 @@ const Dashboard = () => {
                 <div>
                 <p className='text-xm px-[5px] py-[5px]  font-bold mt-[-35px]'>Portfolio Performance</p>
                   <div className={`${activeMenu ? 'w-[730px]' : 'w-[860px]'} h-[430px]  rounded-lg p-[15px]`}>
-                      <PortfolioChart/>
+                      <Chart data={portFdata} options={portFoptions}/>
                   </div>
                 </div>
 

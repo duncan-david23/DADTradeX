@@ -5,19 +5,89 @@ import { dataContext } from '../contexts/OtherContexts'
 import Sidebar from '../components/Sidebar'
 import TopNav from '../components/TopNav'
 import appleLogo from '../assets/appleLogo.png'
-import {stockData} from '../assets/data'
+import {stockData, singleStockPrices} from '../assets/data'
 import Transactions from '../components/Transactions'
-import PortfolioChart from '../components/PortfolioChart'
+import Chart from '../components/Chart'
+
+
 
 const IndPage = () => {
   const {dataValues} = useContext(dataContext);
   const {activeMenu} = dataValues;
 
   const copyOfStkDta = stockData.slice(0,3);
-  console.log(copyOfStkDta);
   const portfolioData = stockData.slice(0,6)
 
   const [buySell, setBuySell] = useState('sell')
+  const [quantityValue, setQuantityValue] = useState()
+  const [priceValue, setPriceValue] = useState()
+  const [stockPrice, setStockPrice] = useState(127.67)
+
+
+const handleQuantityValue = (e) => {
+    const newQuantity = e.target.value;
+    setQuantityValue(newQuantity);
+    if (newQuantity) {
+        setPriceValue((parseFloat(newQuantity) * stockPrice).toFixed(2));
+    } else {
+        setPriceValue('');
+    }
+};
+
+const handlePriceValue = (e) => {
+    const newPrice = e.target.value;
+    setPriceValue(newPrice);
+    if (newPrice) {
+        setQuantityValue((parseFloat(newPrice) / stockPrice).toFixed(2));
+    } else {
+        setQuantityValue('');
+    }
+};
+
+
+  const singleStockdata = {
+    labels: singleStockPrices.map(item=> item.time),
+    datasets: [
+      {
+        label: 'AAPL',
+        data: singleStockPrices.map(item=> item.price),
+        fill: true,
+        backgroundColor: 'rgba(147, 112, 219, 0.3)',
+        borderColor: 'rgba(147, 112, 219, 0.5)',
+        tension:0.1
+      }
+    ]
+  };
+
+  const singleStockoptions = {
+    responsive:true,
+    plugins: {
+      legend: {
+        position: "top",
+        display: false
+      },
+      title: {
+        display: false,
+        text: 'Portfolio Performance'
+      },
+    },
+    scales: { 
+      x: { 
+        display: false,
+        beginAtZero: true,
+        grid: {
+          display: false
+        }
+      }, 
+      y: { 
+        position: 'right',
+        grid: {
+          display: false // Hides the grid lines for the y-axis
+      }
+      } 
+  }
+      
+  };
   
   
 
@@ -50,8 +120,8 @@ const IndPage = () => {
                         </div>
 
                         <div>
-                            <h1 className='font-bold'>GHC8,777.88</h1>
-                            <p className='text-xs text-red-600 font-semibold'>-2.77% (GHC507.80)</p>
+                            <h1 className='font-bold'>GHC{stockPrice}</h1>
+                            <p className='text-xs text-red-600 font-semibold'>-2.77% (GHC7.80)</p>
                         </div>
 
                       </div>
@@ -59,21 +129,44 @@ const IndPage = () => {
 
                     
                     <div className='my-[50px] rounded-lg bg-white shadow-md py-[7px] px-[20px] w-[650px] h-[350px]'>
-
+                            <Chart data={singleStockdata} options={singleStockoptions}/>
                     </div>
                   
                 </div>
 
-                <div className=' rounded-lg bg-white py-[7px] px-[20px] w-[250px] h-[280px] mr-[30px] mt-[160px]'>
+                <div className=' rounded-lg bg-white py-[15px] px-[20px] w-[280px] h-[425px] mr-[30px] mt-[100px] shadow-lg'>
                     <div className='flex'>
                         <h1 onClick={()=> setBuySell('buy')} className={`${buySell=== 'buy' ? 'bg-purple-600 text-white' : 'bg-gray-200'}  w-[120px] p-[8px] text-center font-bold rounded-lg  cursor-pointer`}>Buy</h1>
                         <h1 onClick={()=> setBuySell('sell')} className={`${buySell=== 'sell' ? 'bg-purple-600 text-white' : 'bg-gray-200'}  w-[120px] p-[8px] text-center font-bold rounded-lg ml-[-15px] cursor-pointer`}>Sell</h1>
                     </div>
-                    <h1 className='text-xl text-center font-bold mt-[20px] text-gray-500'>GHC8,777.88</h1>
-                    <div className='mt-[50px] w-[220px] bg-gray-200 p-[10px] rounded-xl '>
-                        <input type="number" className='w-full bg-transparent outline-none border-none' placeholder='Enter Amount' />
+                    
+                    <form>
+
+                    <div className='px-[10px] py-[20px] mt-[20px] rounded-lg'>
+                        <h1 className='text-sm font-bold text-gray-500 pb-[10px]'>Buy Order</h1>
+                        <label htmlFor="" className='text-xs mt-[5px] font-semibold'>Quantity</label>
+                        <div className='mt-[5px] w-[220px] bg-gray-200 p-[5px] rounded-lg '>
+                            <input type="number" className='w-full bg-transparent outline-none border-none' onChange={handleQuantityValue} value={quantityValue} placeholder='Quantity' />
+                        </div>
+                        <div className='flex justify-between mt-[10px] mb-[15px]'>
+                            <p className='bg-gray-300 px-[8px] py-[5px] rounded-lg cursor-pointer w-[70px]'>Limit</p>
+                            <p className='bg-gray-300 px-[8px] py-[5px] rounded-lg cursor-pointer w-[70px]'>Market</p>
+                            <p className='bg-gray-300 px-[8px] py-[5px] rounded-lg cursor-pointer w-[70px]'>Stop</p>
+                        </div>
+                        <label htmlFor="" className='text-xs  font-semibold'>Price</label>
+                        <div className='mt-[5px] w-[220px] bg-gray-200 p-[5px] rounded-lg '>
+                            <input type="number" className='w-full bg-transparent outline-none border-none' onChange={handlePriceValue} value={priceValue} placeholder='Price' />
+                        </div>
+
+                        <div className='flex justify-between items-center mt-[15px]'>
+                            <p className='text-sm'>Estimated Total <span className='font-bold'>(GHC)</span></p>
+                            <p className='font-bold'>{priceValue ? priceValue : '0.00'}</p>
+                        </div>
+                        <button className='mt-[15px] w-[220px] p-[10px] text-center bg-purple-600 text-white font-bold rounded-lg'>{buySell==='buy'? 'Submit Buy Order': 'Submit Sell Order'}</button>
                     </div>
-                    <button className='mt-[15px] w-[220px] p-[10px] text-center bg-purple-600 text-white font-bold rounded-full'>{buySell==='buy'? 'Buy': 'Sell'}</button>
+
+                    </form>
+
                 </div>
 
                 
