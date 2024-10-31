@@ -91,7 +91,7 @@ const Dashboard = () => {
                   {copyOfStkDta.map(item => {
 
                       let percentChange = parseFloat(item.change);
-                      console.log(percentChange);
+                      
                       
 
                    return ( 

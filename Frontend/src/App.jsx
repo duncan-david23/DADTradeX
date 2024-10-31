@@ -8,7 +8,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import { AuthProvider } from './contexts/AuthContext.jsx';
 import { DataContextProvider } from './contexts/OtherContexts.jsx';
 import BlognNews from './pages/BlognNews.jsx';
-import Exchange from './pages/Exchange.jsx';
+import Cryptocurrencies from './pages/Cryptocurrencies.jsx';
 import Market from './pages/Market.jsx';
 import IndPage from './pages/IndPage.jsx';
 
@@ -23,7 +23,7 @@ const App = () => {
           <Route path="/register" element={<SignUp />} />
           <Route path="/" element={<Home />} />
           <Route path="/blog" element={<BlognNews />} />
-          <Route path="/exchange" element={<Exchange />} />
+          <Route path="/cryptocurrencies" element={<Cryptocurrencies />} />
           <Route path="/market" element={<Market />} />
           <Route path="/dashboard/:id/i-details/:id" element={<IndPage />} />
           

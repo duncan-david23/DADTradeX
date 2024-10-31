@@ -1,5 +1,5 @@
-import React, { useContext, useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useContext, useState, useEffect } from 'react'
+import { Link, useParams } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
 import { dataContext } from '../contexts/OtherContexts'
 import Sidebar from '../components/Sidebar'
@@ -13,7 +13,7 @@ import Chart from '../components/Chart'
 
 const IndPage = () => {
   const {dataValues} = useContext(dataContext);
-  const {activeMenu} = dataValues;
+  const {activeMenu, cryptoData, error, loading} = dataValues;
 
   const copyOfStkDta = stockData.slice(0,3);
   const portfolioData = stockData.slice(0,6)
@@ -21,7 +21,7 @@ const IndPage = () => {
   const [buySell, setBuySell] = useState('sell')
   const [quantityValue, setQuantityValue] = useState()
   const [priceValue, setPriceValue] = useState()
-  const [stockPrice, setStockPrice] = useState(127.67)
+  const [price, setPrice] = useState()
 
 
 const handleQuantityValue = (e) => {
@@ -38,7 +38,7 @@ const handlePriceValue = (e) => {
     const newPrice = e.target.value;
     setPriceValue(newPrice);
     if (newPrice) {
-        setQuantityValue((parseFloat(newPrice) / stockPrice).toFixed(2));
+        setQuantityValue((parseFloat(newPrice) / price).toFixed(2));
     } else {
         setQuantityValue('');
     }
@@ -88,8 +88,24 @@ const handlePriceValue = (e) => {
   }
       
   };
+
   
   
+  const {id} = useParams();
+  const commodity = cryptoData.find(item => item.id === id);
+  console.log(commodity.name);
+  const cPrice = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(commodity.low_24h);
+  const priceChange = parseFloat(commodity.price_change_24h).toFixed(2);
+  const priceChangePercentage = parseFloat(commodity.price_change_percentage_24h).toFixed(2);
+  const totalVolume = new Intl.NumberFormat('en-US').format(commodity.total_volume);
+  const marketCap = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(commodity.market_cap);
+  const previousClose = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(commodity.ath);
+
+  
+
+  useEffect(()=> {
+      setPrice(cPrice)
+  }, [])
 
   return (
     <div className='bg-gray-100' >
@@ -108,11 +124,11 @@ const handlePriceValue = (e) => {
                         
                         <div className='flex gap-[15px] items-center'>
                             <div className='w-[40px] h-[40px] bg p-[7px] bg-slate-300 rounded-full'>
-                                <img src={appleLogo} alt="" className='w-[40px]' />
+                                <img src={commodity.image} alt="" className='w-[40px]' />
                             </div>
                             <div>
-                                <h1 className='font-bold text-xl'>AAPL</h1>
-                                <p className='text-xs text-gray-500'>Apple Inc</p>
+                                <h1 className='font-bold text-xl'>{commodity.symbol}</h1>
+                                <p className='text-xs text-gray-500'>{commodity.name}</p>
                             </div>
                             <div className='mt-[-20px] cursor-pointer bg-blue-50 py-[2px] px-[5px] text-xs font-bold'>
                                 <p className='text-blue-600'>Follow</p>
@@ -120,8 +136,8 @@ const handlePriceValue = (e) => {
                         </div>
 
                         <div>
-                            <h1 className='font-bold'>GHC{stockPrice}</h1>
-                            <p className='text-xs text-red-600 font-semibold'>-2.77% (GHC7.80)</p>
+                            <h1 className='font-bold'>{price}</h1>
+                            <p className={`font-semibold ${priceChangePercentage <=0 ? 'text-red-600' : 'text-green-600'}`}>{priceChangePercentage} <span className={`font-semibold ${priceChange < 0 ? 'text-red-600' : 'text-green-600'}`}>(${priceChange})</span> </p>
                         </div>
 
                       </div>
@@ -180,23 +196,23 @@ const handlePriceValue = (e) => {
                 <p className='bg-gray-400 h-[2px]'></p>
                 <div className='flex justify-between px-[10px] py-[5px] items-center'>
                     <p className='font-semibold text-sm text-gray-500'>Previous Close</p>
-                    <h1 className='font-bold text-sm'>GHC8,789.22</h1>
+                    <h1 className='font-bold text-sm'>{previousClose}</h1>
                 </div>
                 <div className='flex justify-between px-[10px] py-[5px] items-center'>
                     <p className='font-semibold text-sm text-gray-500'>Volume</p>
-                    <h1 className='font-bold text-sm'>180,000,000</h1>
+                    <h1 className='font-bold text-sm'>{totalVolume}</h1>
                 </div>
                 <div className='flex justify-between px-[10px] py-[5px] items-center'>
                     <p className='font-semibold text-sm text-gray-500'>Market Cap</p>
-                    <h1 className='font-bold text-sm'>GHC23.5T</h1>
+                    <h1 className='font-bold text-sm'>{marketCap}</h1>
                 </div>
                 <div className='flex justify-between px-[10px] py-[5px] items-center'>
                     <p className='font-semibold text-sm text-gray-500'>PE Ratio(TTM)</p>
-                    <h1 className='font-bold text-sm'>GHC240.02</h1>
+                    <h1 className='font-bold text-sm'>-</h1>
                 </div>
                 <div className='flex justify-between px-[10px] py-[5px] items-center'>
                     <p className='font-semibold text-sm text-gray-500'>EPS</p>
-                    <h1 className='font-bold text-sm'>GHC123.72</h1>
+                    <h1 className='font-bold text-sm'>-</h1>
                 </div>
             </div>
 

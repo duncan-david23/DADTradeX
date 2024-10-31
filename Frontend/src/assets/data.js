@@ -134,6 +134,11 @@ export const stockData = [
     }
 ]
 
+
+
+
+
+
 export const stockPrices = [
     { id: 1, time: "2024-10-01T09:00:00", price: 42345.67 },
     { id: 2, time: "2024-10-01T10:00:00", price: 45230.12 },

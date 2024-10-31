@@ -15,6 +15,7 @@ import { RiArrowRightDoubleLine } from "react-icons/ri";
 
 
 
+
 const Sidebar = () => {
     
     const {dataValues} = useContext(dataContext)
@@ -64,24 +65,15 @@ const Sidebar = () => {
             </div>
             
             <div className='py-[10px] px-[15px] font-semibold hover:text-purple-700 mt-[8px]  '>
-                <NavLink to='/exchange' className={({isActive})=> ` flex gap-[15px] items-center ${isActive ? 'activeBg': ''} `}>
+                <NavLink to='/cryptocurrencies' className={({isActive})=> ` flex gap-[15px] items-center ${isActive ? 'activeBg': ''} `}>
                 <RiExchange2Line className='text-lg'/>
                 {activeMenu ? 
-                <p>Exchange</p>
+                <p>Cryptocurrencies</p>
                 : '' 
                 }
                 </NavLink>
             </div>
             
-            <div className='py-[10px] px-[15px] font-semibold hover:text-purple-700 mt-[8px]  '>
-                <NavLink to='/blog' className={({isActive})=> ` flex gap-[15px] items-center ${isActive ? 'activeBg': ''} `}>
-                <HiOutlineNewspaper className='text-lg'/>
-                {activeMenu ? 
-                <p>Blog & News</p>
-                : '' 
-                } 
-                </NavLink>
-            </div>
             
 
         </div>

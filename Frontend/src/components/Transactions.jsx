@@ -13,18 +13,21 @@ const Transactions = () => {
   // <CiCoinInsert />
   return (
     <div>
-        <p className='font-bold text-xl py-[5px]'>Last Transactions</p>
+        <div><p className='font-bold text-xl py-[5px]'>Last Transactions</p></div>
                 <hr className='text-gray-700' />
                 <div className='mt-[15px]'>
-
+                
                 
                 <table >
+                    <thead>
                     <tr>
                         <th className='pl-[1px]'>Transaction</th>
                         <th>Date</th>
                         <th>Status</th>
                         <th>Amount</th>
                     </tr>
+                    </thead>
+                    <tbody>
                     <tr>
                         <td className='font-semibold flex items-center gap-[10px] pl-[1px]'><span className='bg-purple-600 w-[30px] py-[5px]  rounded-full'><CiCoinInsert className='w-[30px] text-white text-xl' /></span> Bought AAPL</td>
                         <td>25-Oct-24  13:35</td>
@@ -49,7 +52,7 @@ const Transactions = () => {
                         <td className='text-green-400 font-semibold'>Success</td>
                         <td className='font-semibold'>GHC17,800.00</td>
                     </tr>
-                    
+                    </tbody>
                 </table>
                 </div>
     </div>
