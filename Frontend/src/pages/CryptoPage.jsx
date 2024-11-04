@@ -8,12 +8,14 @@ import appleLogo from '../assets/appleLogo.png'
 import {stockData, singleStockPrices} from '../assets/data'
 import Transactions from '../components/Transactions'
 import Chart from '../components/Chart'
+import toast, { Toaster } from 'react-hot-toast';
 
 
 
-const IndPage = () => {
+
+const CryptoPage = () => {
   const {dataValues} = useContext(dataContext);
-  const {activeMenu, cryptoData, error, loading} = dataValues;
+  const {activeMenu, cryptoData, error, loading, accountBalance} = dataValues;
 
   const copyOfStkDta = stockData.slice(0,3);
   const portfolioData = stockData.slice(0,6)
@@ -24,25 +26,7 @@ const IndPage = () => {
   const [price, setPrice] = useState()
 
 
-const handleQuantityValue = (e) => {
-    const newQuantity = e.target.value;
-    setQuantityValue(newQuantity);
-    if (newQuantity) {
-        setPriceValue((parseFloat(newQuantity) * stockPrice).toFixed(2));
-    } else {
-        setPriceValue('');
-    }
-};
 
-const handlePriceValue = (e) => {
-    const newPrice = e.target.value;
-    setPriceValue(newPrice);
-    if (newPrice) {
-        setQuantityValue((parseFloat(newPrice) / price).toFixed(2));
-    } else {
-        setQuantityValue('');
-    }
-};
 
 
   const singleStockdata = {
@@ -88,24 +72,85 @@ const handlePriceValue = (e) => {
   }
       
   };
-
-  
-  
-  const {id} = useParams();
-  const commodity = cryptoData.find(item => item.id === id);
-  console.log(commodity.name);
-  const cPrice = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(commodity.low_24h);
-  const priceChange = parseFloat(commodity.price_change_24h).toFixed(2);
-  const priceChangePercentage = parseFloat(commodity.price_change_percentage_24h).toFixed(2);
-  const totalVolume = new Intl.NumberFormat('en-US').format(commodity.total_volume);
-  const marketCap = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(commodity.market_cap);
-  const previousClose = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(commodity.ath);
-
   
 
-  useEffect(()=> {
-      setPrice(cPrice)
-  }, [])
+
+ 
+
+      const {id} = useParams();
+
+  
+      const crypto = cryptoData.find(item => item.id === id);
+      let cPrice = parseFloat(crypto.low_24h); 
+      let priceChange = parseFloat(crypto.price_change_24h).toFixed(2);
+      let priceChangePercentage = parseFloat(crypto.price_change_percentage_24h).toFixed(2);
+      let totalVolume = new Intl.NumberFormat('en-US').format(crypto.total_volume);
+      let marketCap = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(crypto.market_cap);
+      let previousClose = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(crypto.ath);
+  
+      
+      const handleQuantityValue = (e) => {
+        const newQuantity = e.target.value;
+        setQuantityValue(newQuantity);
+        if (newQuantity) {
+            setPriceValue((parseFloat(newQuantity) * parseFloat(price)).toFixed(2));
+        } else {
+            setPriceValue('');
+        }
+    };
+    
+    const handlePriceValue = (e) => {
+    
+        const newPrice = e.target.value;
+        setPriceValue(newPrice);
+        if (newPrice) {
+            setQuantityValue((parseFloat(newPrice) / price).toFixed(2));
+        } else {
+            setQuantityValue('');
+        }
+    };
+
+    
+
+const notify = (notification) => toast(notification);
+
+const handlePurchase = (e) => {
+  e.preventDefault();
+
+  // Convert priceValue and accountBalance to numbers
+  const price = parseFloat(priceValue);
+  const balance = parseFloat(accountBalance);
+  console.log(price, balance);
+
+  if (!isNaN(price) && !isNaN(balance)) {
+    console.log(price, balance);
+
+    if (price > balance) {  // Notify when there's not enough balance
+      notify('Not enough balance');
+    } else if(price ===0){
+      notify("Try Again or check the quantity and price fields please");
+    } else {
+      notify('Order Placed successfully');  // Place order if balance is sufficient
+    } 
+  } else {
+    notify("Try Again or check the quantity and price fields please");
+  }
+  
+};
+
+       
+
+    
+    
+
+  
+
+      useEffect(()=> {
+        setPrice(cPrice)
+    }, [])
+  
+
+  
 
   return (
     <div className='bg-gray-100' >
@@ -124,11 +169,11 @@ const handlePriceValue = (e) => {
                         
                         <div className='flex gap-[15px] items-center'>
                             <div className='w-[40px] h-[40px] bg p-[7px] bg-slate-300 rounded-full'>
-                                <img src={commodity.image} alt="" className='w-[40px]' />
+                                <img src={crypto.image} alt="" className='w-[40px]' />
                             </div>
                             <div>
-                                <h1 className='font-bold text-xl'>{commodity.symbol}</h1>
-                                <p className='text-xs text-gray-500'>{commodity.name}</p>
+                                <h1 className='font-bold text-xl'>{crypto.symbol}</h1>
+                                <p className='text-xs text-gray-500'>{crypto.name}</p>
                             </div>
                             <div className='mt-[-20px] cursor-pointer bg-blue-50 py-[2px] px-[5px] text-xs font-bold'>
                                 <p className='text-blue-600'>Follow</p>
@@ -175,10 +220,10 @@ const handlePriceValue = (e) => {
                         </div>
 
                         <div className='flex justify-between items-center mt-[15px]'>
-                            <p className='text-sm'>Estimated Total <span className='font-bold'>(GHC)</span></p>
+                            <p className='text-sm'>Estimated Total <span className='font-bold'>($)</span></p>
                             <p className='font-bold'>{priceValue ? priceValue : '0.00'}</p>
                         </div>
-                        <button className='mt-[15px] w-[220px] p-[10px] text-center bg-purple-600 text-white font-bold rounded-lg'>{buySell==='buy'? 'Submit Buy Order': 'Submit Sell Order'}</button>
+                        <button onClick={handlePurchase} className='mt-[15px] w-[220px] p-[10px] text-center bg-purple-600 text-white font-bold rounded-lg'>{buySell==='buy'? 'Submit Buy Order': 'Submit Sell Order'}</button>
                     </div>
 
                     </form>
@@ -224,4 +269,4 @@ const handlePriceValue = (e) => {
   )
 }
 
-export default IndPage
+export default CryptoPage

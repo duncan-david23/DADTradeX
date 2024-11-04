@@ -32,19 +32,19 @@ const Transactions = () => {
                         <td className='font-semibold flex items-center gap-[10px] pl-[1px]'><span className='bg-purple-600 w-[30px] py-[5px]  rounded-full'><CiCoinInsert className='w-[30px] text-white text-xl' /></span> Bought AAPL</td>
                         <td>25-Oct-24  13:35</td>
                         <td className='text-green-400 font-semibold'>Success</td>
-                        <td className='font-semibold'>GHC7,800.00</td>
+                        <td className='font-semibold'>GHC800.00</td>
                     </tr>
                     <tr>
                         <td className='font-semibold flex items-center gap-[10px] pl-[1px]'><span className='bg-purple-600 w-[30px] py-[5px]  rounded-full'><CiCoinInsert className='w-[30px] text-white text-xl' /></span> Bought AAPL</td>
                         <td>25-Oct-24  13:15</td>
                         <td className='text-red-600 font-semibold'>Failed</td>
-                        <td className='font-semibold'>GHC7,800.00</td>
+                        <td className='font-semibold'>GHC800.00</td>
                     </tr>
                     <tr>
                         <td className='font-semibold flex items-center gap-[10px] pl-[1px]'><span className='bg-green-400 w-[30px] py-[5px]  rounded-full'><PiHandWithdrawLight className='w-[30px] text-white text-xl' /></span> Deposite</td>
                         <td>25-Oct-24  18:15</td>
                         <td className='text-gray-600 font-semibold'>Pending</td>
-                        <td className='font-semibold'>GHC38,000.00</td>
+                        <td className='font-semibold'>GHC3,100.00</td>
                     </tr>
                     <tr>
                         <td className='font-semibold flex items-center gap-[10px] pl-[1px]'><span className='bg-blue-400 w-[30px] py-[5px]  rounded-full'><CiCoinInsert className='w-[30px] text-white text-xl' /></span> Sold NKE</td>

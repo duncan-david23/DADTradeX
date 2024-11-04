@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
 import { dataContext } from '../contexts/OtherContexts'
@@ -9,13 +9,18 @@ import {stockData} from '../assets/data'
 import Transactions from '../components/Transactions'
 import Chart from '../components/Chart'
 import {stockPrices} from '../assets/data';
+import axios from 'axios'
+import {useParams } from 'react-router-dom'
+
+
 
 const Dashboard = () => {
   const {dataValues} = useContext(dataContext);
-  const {activeMenu} = dataValues;
+  const {activeMenu, setUserId, accountBalance, userName, userEmail, displaySettingsModal, displaySupportModal} = dataValues;
+  
+  
 
   const copyOfStkDta = stockData.slice(0,3);
-  console.log(copyOfStkDta);
   const portfolioData = stockData.slice(0,6)
 
   const portFdata = {
@@ -61,25 +66,41 @@ const Dashboard = () => {
   }
       
   };
+
+  const {id} = useParams();
+  console.log(id);
+  
+  
+  useEffect(()=> {
+    setUserId(id);
+  },[])
+
+ 
   
   
 
   return (
     <div>
-      <TopNav/>
+      <TopNav userName={userName} userEmail={userEmail} />
       <div className='flex'>
 
         <Sidebar/>
+        
+
         <div className={` flex-1 ${activeMenu ? 'ml-[260px]' : 'ml-[120px]'} mt-[85px]`}>
           
           <div>
               <div className='flex justify-between items-center'>
-                <div className='w-[250px] h-[140px] shadow-lg rounded-lg bg-gray-50'>
-                  <p className='text-xm px-[15px] py-[10px] font-semibold'>Portfolio value</p>
-                  <h1 className='font-extrabold text-xl px-[15px]'>GHC57,872.89</h1>
+                <div className='w-[250px] h-[155px] shadow-lg rounded-lg bg-gray-50'>
+                  <p className='text-xm px-[15px] py-[10px] font-semibold'>Net Liquid Assets</p>
+                  <h1 className='font-extrabold text-xl px-[15px]'>GHC 3,680.25</h1>
                   <div className='px-[15px] text-xs flex justify-between py-[7px] font-semibold mt-[20px]'>
                     <p>Profit/Loss</p>
-                    <p className='text-green-600 font-bold'>+ GHC15,010.82</p>
+                    <p className='text-green-600 font-bold'>+ GHC210.82</p>
+                  </div>
+                  <div className='px-[15px] text-xs flex justify-between py-[7px] font-semibold'>
+                    <p>Cash</p>
+                    <p className='font-bold'>{accountBalance}</p>
                   </div>
                 </div>
 
@@ -96,7 +117,7 @@ const Dashboard = () => {
 
                    return ( 
                       
-                    <Link to='i-details/1'>
+                    <Link to={`s-details/${item.id}`}>
                     <div key={item.id} className='w-[200px] h-[100px] shadow-lg rounded-lg bg-gray-50 px-[15px] py-[10px] cursor-pointer hover:bg-gray-100'>
                     <div className='flex gap-[10px] items-center'>
                       <div className='bg-white p-[7px] rounded-full'>

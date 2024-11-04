@@ -9,24 +9,24 @@ import { useNavigate } from 'react-router-dom';
 
 const Cryptocurrencies = () => {
   const {dataValues} = useContext(dataContext);
-  const {activeMenu, cryptoData, error, loading} = dataValues;
+  const {activeMenu, cryptoData, error, loading, userName, userEmail, userAccountId} = dataValues;
  
   const navigate = useNavigate();
   
   const toDetailsPage = (idx)=> {
-      navigate(`/dashboard/${idx}/i-details/${idx}`)
+      navigate(`/dashboard/${userAccountId}/c-details/${idx}`)
   };
   
 
   return (
     <div>
-      <TopNav/>
+      <TopNav userName={userName} userEmail={userEmail}/>
       <div className='flex'>
 
         <Sidebar/>
 
         <div className={` flex-1 ${activeMenu ? 'ml-[260px]' : 'ml-[120px]'} mt-[85px]`}>
-        <div><p className='font-bold text-xl py-[5px]'>Market Value</p></div>
+        <div><p className='font-bold text-xl py-[5px]'>Crypto Market</p></div>
                 <hr className='text-gray-700' />
               
               <div className='mt-[15px]'>
@@ -62,7 +62,7 @@ const Cryptocurrencies = () => {
                         <>
                         
                         <tr key={item.id} onClick={()=> toDetailsPage(item.id)} className='cursor-pointer hover:bg-purple-100'>
-                          <td className='font-semibold flex items-center gap-[10px] pl-[1px]'><span className=' w-[30px] py-[5px] '><img src={item.image} alt="" className='w-[30px] text-white text-xl' /></span> {item.name}</td>
+                          <td className='font-semibold flex items-center gap-[10px] pl-[1px]'><span className=' w-[30px] py-[5px] '><img src={item.image} alt="" className='w-[30px] text-white text-xl rounded-full' /></span> {item.name}</td>
                           <td className='font-semibold'>{price}</td>
                           <td className={`font-semibold ${priceChange <=0 ? 'text-red-600' : 'text-green-600'}`}>{priceChange}</td>
                           <td className={`font-semibold ${priceChangePercentage < 0 ? 'text-red-600' : 'text-green-600'}`}>{priceChangePercentage}</td>

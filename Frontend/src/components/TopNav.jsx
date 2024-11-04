@@ -5,7 +5,15 @@ import { CiSearch } from "react-icons/ci";
 import profilePic from '../assets/profilePic.png'
 
 
-const TopNav = () => {
+const TopNav = ({userName, userEmail}) => {
+
+
+
+
+
+
+
+
   return (
     <div className=' w-full px-[20px] py-[15px] flex justify-between bg-white fixed'>
 
@@ -18,15 +26,15 @@ const TopNav = () => {
         </div>
       </div>
 
-      <div className='flex gap-[8px] ml-[10px] md:gap-[30px] items-center'>
+      <div className='flex gap-[8px] ml-[10px] md:gap-[30px] items-center cursor-pointer'>
         <CiStar className='text-xl'/>
         <CiBellOn className='text-xl'/>
         
-        <div className='flex gap-[5px] items-center'>
+        <div className='flex gap-[5px] items-center cursor-pointer'>
             <img src={profilePic} alt=""  className='w-[45px] rounded-full'/>
             <div>
-                <h1 className='font-semibold hidden md:block md:text-xm'>David A. Duncan</h1>
-                <p className='text-gray-400 hidden md:block md:text-xs'>duncan.david600@gmail.com</p>
+                <h1 className='font-semibold hidden md:block md:text-xm'>{userName}</h1>
+                <p className='text-gray-400 hidden md:block md:text-xs'>{userEmail}</p>
             </div>
         </div>
       </div>

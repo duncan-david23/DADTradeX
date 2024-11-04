@@ -1,5 +1,5 @@
-import React, { useContext, useState } from 'react'
-import { Link, NavLink } from 'react-router-dom'
+import React, { useContext, useState, useEffect } from 'react'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { RxDashboard } from "react-icons/rx";
 import { RiBarChart2Line } from "react-icons/ri";
 import { RiExchange2Line } from "react-icons/ri";
@@ -11,6 +11,8 @@ import { useAuth } from '../contexts/AuthContext';
 import { dataContext } from '../contexts/OtherContexts';
 import { RiArrowLeftDoubleLine } from "react-icons/ri";
 import { RiArrowRightDoubleLine } from "react-icons/ri";
+import {useParams } from 'react-router-dom'
+
 
 
 
@@ -19,14 +21,24 @@ import { RiArrowRightDoubleLine } from "react-icons/ri";
 const Sidebar = () => {
     
     const {dataValues} = useContext(dataContext)
-    const {activeMenu, setActiveMenu} = dataValues;
-    
-        
+    const {activeMenu, setActiveMenu, userAccountId, setDisplaySettingsModal, displaySupportModal, setDisplaySupportModal} = dataValues;
+    const navigate = useNavigate(); 
+
+
+
+    const handleLogout = ()=> {
+        navigate('/login')
+    }
+
+
+
+
+   
 
   return (
     <div className={`${activeMenu ? 'w-60':'w-30' } transition-all overflow-y-auto min-h-screen flex flex-col justify-between px-[10px] py-[15px] fixed top-0 left-0 bg-purple-50` } style={{zIndex:'1000'}}>
       <div className=' flex gap-[8px] items-center justify-between'>
-        <Link to='/dashboard/1'>
+        <Link to={`/dashboard/${userAccountId}`}>
           <h1><span className='text-xs md:text-xl font-bold text-purple-800 cursor-pointer'>{`${activeMenu ? 'DADTradeX' : 'DTX'}`}</span> </h1>
           </Link>
           {
@@ -44,7 +56,7 @@ const Sidebar = () => {
             <p className={`${activeMenu ? 'ml-[20px]' : 'ml-[10px]'}  text-xs opacity-40 font-semibold`}>MENU </p>
             <div className='py-[10px] px-[15px] font-semibold hover:text-purple-700 mt-[15px] '>
                 
-                <NavLink to='/dashboard/1' className={({isActive})=> ` flex gap-[15px] items-center ${isActive ? 'activeBg': ''} `}>
+                <NavLink to={`/dashboard/${userAccountId}`} className={({isActive})=> ` flex gap-[15px] items-center ${isActive ? 'activeBg': ''} `}>
                 <RxDashboard className='text-lg '/>
                 {activeMenu ? 
                 <p>Dashboard</p>
@@ -58,7 +70,7 @@ const Sidebar = () => {
                 <NavLink to='/market' className={({isActive})=> ` flex gap-[15px] items-center ${isActive ? 'activeBg': ''} `}>
                 <RiBarChart2Line className='text-lg'/>
                 {activeMenu ? 
-                <p>Market</p>
+                <p>Stocks</p>
                 : '' 
                 }
                 </NavLink>
@@ -84,7 +96,7 @@ const Sidebar = () => {
             <div className='py-[10px] px-[15px] font-semibold hover:text-purple-700 mt-[8px]  cursor-pointer flex gap-[15px] items-center '>
                 <RiUserSettingsLine className='text-lg'/>
                 {activeMenu ? 
-                <p>Settings</p>
+                <p onClick={()=> setDisplaySettingsModal(true)}>Settings</p>
                 : '' 
                 }
             </div>
@@ -92,7 +104,7 @@ const Sidebar = () => {
             <div className='py-[10px] px-[15px] font-semibold hover:text-purple-700 mt-[8px]  cursor-pointer flex gap-[15px] items-center '>
                 <BiSupport className='text-lg'/>
                 {activeMenu ? 
-                <p>Support</p>
+                <p onClick={()=> setDisplaySupportModal(true)}>Support</p>
                 : '' 
                 }
             </div>
@@ -101,7 +113,7 @@ const Sidebar = () => {
         
         <div >
             <hr />
-            <div  className=' py-[10px] px-[15px] font-semibold hover:text-purple-700 mt-[8px] flex gap-[15px] items-center cursor-pointer '>
+            <div onClick={handleLogout} className=' py-[10px] px-[15px] font-semibold hover:text-purple-700 mt-[8px] flex gap-[15px] items-center cursor-pointer '>
             <IoIosLogOut className='text-lg'/>
             {activeMenu ? 
                 <p>Logout</p>

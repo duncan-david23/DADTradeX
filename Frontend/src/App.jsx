@@ -1,22 +1,29 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import LogIn from './pages/LogIn';
 import SignUp from './pages/SignUp';
 import Home from './pages/Home';
 import Dashboard from './pages/Dashboard';
 import ProtectedRoute from './components/ProtectedRoute';
-import { AuthProvider } from './contexts/AuthContext.jsx';
-import { DataContextProvider } from './contexts/OtherContexts.jsx';
 import BlognNews from './pages/BlognNews.jsx';
 import Cryptocurrencies from './pages/Cryptocurrencies.jsx';
 import Market from './pages/Market.jsx';
-import IndPage from './pages/IndPage.jsx';
-
+import CryptoPage from './pages/cryptoPage.jsx';
+import StockPage from './pages/StockPage.jsx';
+import toast, { Toaster } from 'react-hot-toast';
+import SettingsModal from './components/SettingsModal'
+import SupportModal from './components/SupportModal'
+import { dataContext } from './contexts/OtherContexts'
 
 const App = () => {
+
+  const {dataValues} = useContext(dataContext);
+  const {displaySettingsModal, displaySupportModal} = dataValues;
   return (
-    <DataContextProvider>
-    <AuthProvider>
+      <>
+          <Toaster />
+          {displaySettingsModal &&  <SettingsModal/> }
+          {displaySupportModal && <SupportModal /> }
       <Router>
         <Routes>
           <Route path="/login" element={<LogIn />} />
@@ -25,7 +32,8 @@ const App = () => {
           <Route path="/blog" element={<BlognNews />} />
           <Route path="/cryptocurrencies" element={<Cryptocurrencies />} />
           <Route path="/market" element={<Market />} />
-          <Route path="/dashboard/:id/i-details/:id" element={<IndPage />} />
+          <Route path="/dashboard/:id/c-details/:id" element={<CryptoPage />} />
+          <Route path="/dashboard/:id/s-details/:id" element={<StockPage />} />
           
           {/* Protect the dashboard route */}
           <Route path="/dashboard/:id" element={<ProtectedRoute element={<Dashboard />} />} />
@@ -33,9 +41,8 @@ const App = () => {
         </Routes>
       </Router>
       
-    </AuthProvider>
-    </DataContextProvider>
-
+    
+    </>
   );
 };
 

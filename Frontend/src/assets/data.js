@@ -12,7 +12,14 @@ import NvidiaLogo from '../assets/Nvidia-Logo.png';
 import payPalLogo from '../assets/paypal-logo.png';
 import QICLogo from '../assets/QIC-logo.webp';
 import telecelLogo from '../assets/telecel-logo.png';
-import teslaLogo from '../assets/Tesla-logo.png';
+import ecobankLogo from '../assets/Ecobank-Logo.png';
+import gcbLogo from '../assets/GCB_LOGO.png';
+import guinnessLogo from '../assets/Guinness_logo.png';
+import mtnLogo from '../assets/MTN_Logo.svg.png';
+import sicLogo from '../assets/sic_logo.jpg';
+import schartLogo from '../assets/stchart_logo.png'; 
+import unileverLogo from '../assets/Unilever_logo.png'; 
+
 
 
 
@@ -44,20 +51,22 @@ export const images = [
 export const stockData = [
     {
         id:1,
-        symbol: "AAPL",
-        name: "Apple Inc",
-        volume: 74000000,
-        price: 8777.88,
-        change: "12.23%",
-        img: appleLogo
+        symbol: "MTN",
+        name: "MTN Inc",
+        volume: 151762,
+        price: 2.16,
+        change: "2.37",
+        marketCap: 327805.92,
+        img: mtnLogo
     },
     {
         id:2,
         symbol: "FANML",
         name: "FanMilk Inc",
-        volume: 7400000,
-        price: 77.88,
-        change: "13.93%",
+        volume: 6951,
+        price: 3.70,
+        change: "0.00",
+        marketCap: 25718.70,
         img: fanMilkLogo
     },
     {
@@ -66,71 +75,79 @@ export const stockData = [
         name: "Quality Insurance Inc",
         volume: 700000,
         price: 37.88,
-        change: "25.55%",
+        change: "25.55",
+        marketCap:26516000.00,
         img: QICLogo
     },
     {
         id:4,
-        symbol: "MTA",
-        name: "META Inc",
-        volume: 84000000,
-        price: 8892.88,
-        change: "1.27%",
-        img: metaLogo
+        symbol: "GNS",
+        name: "Guinness Inc",
+        volume: 42,
+        price: 4.70,
+        change: "0.17",
+        marketCap:197.40,
+        img: guinnessLogo
     },
     {
         id:5,
-        symbol: "NKE",
-        name: "Nike Inc",
-        volume: 4000000,
-        price: 8666.18,
-        change: "2.23%",
-        img: NikeLogo
+        symbol: "GCB",
+        name: "Ghana Commercial Bank",
+        volume: 3224,
+        price: 6.15,
+        change: "0.00",
+        marketCap:19827.60,
+        img: gcbLogo
     },
     {
         id:6,
-        symbol: "NVD",
-        name: "Nvidia Inc",
-        volume: 70000000,
-        price: 9897.89,
-        change: "8.23%",
-        img: NvidiaLogo
+        symbol: "STCT",
+        name: "Stanchart Inc",
+        volume: 58,
+        price: 1334,
+        change: "0.00",
+        marketCap: 77372.00,
+        img: schartLogo
     },
     {
         id:7,
-        symbol: "PYPL",
-        name: "PayPal Inc",
-        volume: 14000000,
-        price: 8002.22,
-        change: "0.93%",
-        img: payPalLogo
+        symbol: "SIC",
+        name: "SIC Insurance Inc",
+        volume: 348,
+        price: 0.25,
+        change: "0.93",
+        marketCap:  87.00,
+        img: sicLogo
     },
     {
         id:8,
         symbol: "TLCL",
         name: "Telecel Inc",
         volume: 8500000,
-        price: 57.88,
-        change: "0.73%",
+        price: 7.88,
+        change: "0.73",
+        marketCap:  66980000.00,
         img: telecelLogo
     },
     {
         id:9,
-        symbol: "MCD",
-        name: "McDonald's INC",
-        volume: 80000000,
-        price: 6777.88,
-        change: "9.03%",
-        img: mcDLogo
+        symbol: "ECB",
+        name: "Ecobank Trans.",
+        volume: 2000,
+        price: 0.20,
+        change: "5.26",
+        marketCap:  400.00,
+        img: ecobankLogo
     },
     {
         id:10,
-        symbol: "TSLA",
-        name: "Tesla Inc",
-        volume: 70000000,
-        price: 3700.88,
-        change: "0.23%",
-        img: teslaLogo
+        symbol: "UNLV",
+        name: "Unilever Inc",
+        volume: 0,
+        price: 16.50,
+        change: "0.23",
+        marketCap:  0.00,
+        img: unileverLogo
     }
 ]
 

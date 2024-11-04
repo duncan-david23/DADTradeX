@@ -5,12 +5,13 @@ import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext.jsx';
 import Footer from '../components/Footer.jsx';
+import toast, { Toaster } from 'react-hot-toast';
 
 const LogIn = () => {
   
   const [formData, setFormData] = useState({
     username: '',
-    email: 'demo@gmail.com',
+    email: 'demo123@gmail.com',
     password: 'demo123',
     password2: ''
   });
@@ -26,6 +27,8 @@ const LogIn = () => {
   const {login} = useAuth();
 
   const navigate = useNavigate();
+  const notify = () => toast.success('Logged In Successfully.');
+
 
   const handleSubmit = async (e)=> {
     e.preventDefault();
@@ -34,12 +37,14 @@ const LogIn = () => {
       // POST request to your backend
       const response = await axios.post('http://localhost:8000/users/login', formData);
       console.log(response.data);  // Handle the response from the server (e.g., success message)
-      setMsg(response.data);
-      if(response.data === 'Logged in successfully'){
+      const userId = response.data.user_id;
+      setMsg(response.data.message);
+      if(response.data.message === 'Logged in successfully'){
         setMsg('');
         
         login();
-        navigate('/dashboard/1');
+        notify();
+        navigate(`/dashboard/${userId}`);
       }
     } catch (error) {
       console.error('There was an error during sign-up:', error);  // Handle any errors
