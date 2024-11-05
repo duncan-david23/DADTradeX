@@ -1,13 +1,15 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import { CiStar } from "react-icons/ci";
 import { CiBellOn } from "react-icons/ci";
 import { CiSearch } from "react-icons/ci";
-import profilePic from '../assets/profilePic.png'
+import profilePic from '../assets/profile-icon.png'
+import {dataContext} from '../contexts/OtherContexts'
 
 
-const TopNav = ({userName, userEmail}) => {
+const TopNav = () => {
 
-
+  const {dataValues} = useContext(dataContext);
+  const { userName, userEmail} = dataValues;
 
 
 
@@ -30,11 +32,11 @@ const TopNav = ({userName, userEmail}) => {
         <CiStar className='text-xl'/>
         <CiBellOn className='text-xl'/>
         
-        <div className='flex gap-[5px] items-center cursor-pointer'>
-            <img src={profilePic} alt=""  className='w-[45px] rounded-full'/>
+        <div className='flex gap-[5px] items-center cursor-pointer '>
+            <img src={profilePic} alt=""  className='w-[25px] rounded-full bg-slate-200'/>
             <div>
                 <h1 className='font-semibold hidden md:block md:text-xm'>{userName}</h1>
-                <p className='text-gray-400 hidden md:block md:text-xs'>{userEmail}</p>
+                <p className='text-black hidden md:block md:text-xs'>{userEmail}</p>
             </div>
         </div>
       </div>

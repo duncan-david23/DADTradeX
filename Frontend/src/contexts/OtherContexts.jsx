@@ -19,6 +19,8 @@ export const DataContextProvider = ({children})=> {
   const [accountBalance, setAccountBalance] = useState(0);
   const [displaySettingsModal, setDisplaySettingsModal] = useState(false);
   const [displaySupportModal, setDisplaySupportModal] = useState(false);
+  const [giftClaimModal, setGiftClaimModal] = useState(false);
+  const [isRegistered, setIsRegistered] = useState(false);
 
 
 
@@ -46,6 +48,8 @@ export const DataContextProvider = ({children})=> {
     const interval = setInterval(fetchCryptoData, 1800000);
 
     const getAccountDetails = async ()=> {
+      if (!userId) return; // Only fetch if userId is defined
+
       try {
         const response = await axios.get(`http://localhost:8000/users/user-account/${userId}`);
         console.log(response.data);
@@ -63,23 +67,18 @@ export const DataContextProvider = ({children})=> {
     }
 
     getAccountDetails();
-
-
-
-
-
-    //cleanup the interval on component unmount
-    return ()=> clearInterval(interval);
-
-    // fetching user account and profile details
-
     
-
-
+    return ()=> clearInterval(interval);
 
   },[userId])
 
-
+  useEffect(() => {
+    if (userId) {
+      localStorage.setItem('userId', userId);
+    } else {
+      localStorage.removeItem('userId');
+    }
+  }, [userId]);
 
 
 
@@ -100,7 +99,11 @@ export const DataContextProvider = ({children})=> {
         displaySettingsModal, 
         setDisplaySettingsModal,
         displaySupportModal, 
-        setDisplaySupportModal
+        setDisplaySupportModal,
+        giftClaimModal, 
+        setGiftClaimModal,
+        isRegistered, 
+        setIsRegistered
     }
 
 

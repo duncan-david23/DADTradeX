@@ -16,10 +16,7 @@ import {useParams } from 'react-router-dom'
 
 const Dashboard = () => {
   const {dataValues} = useContext(dataContext);
-  const {activeMenu, setUserId, accountBalance, userName, userEmail, displaySettingsModal, displaySupportModal} = dataValues;
-  
-  
-
+  const {activeMenu, setUserId, accountBalance, userName, userEmail, displaySettingsModal, displaySupportModal, setDisplaySettingsModal, setGiftClaimModal, isRegistered, setIsRegistered} = dataValues;
   const copyOfStkDta = stockData.slice(0,3);
   const portfolioData = stockData.slice(0,6)
 
@@ -67,15 +64,26 @@ const Dashboard = () => {
       
   };
 
+
   const {id} = useParams();
-  console.log(id);
-  
-  
+
   useEffect(()=> {
     setUserId(id);
-  },[])
+    if(isRegistered) {
+      const timer = setTimeout(()=>{
+        setGiftClaimModal(true)
+        setIsRegistered(false)
+      }, 5000)
 
- 
+
+      return ()=> clearTimeout(timer);
+    }
+  },[isRegistered])
+
+
+
+ let lAssets = parseFloat(accountBalance);
+ let netLiquidAssets = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'GHC' }).format(lAssets);
   
   
 
@@ -93,10 +101,10 @@ const Dashboard = () => {
               <div className='flex justify-between items-center'>
                 <div className='w-[250px] h-[155px] shadow-lg rounded-lg bg-gray-50'>
                   <p className='text-xm px-[15px] py-[10px] font-semibold'>Net Liquid Assets</p>
-                  <h1 className='font-extrabold text-xl px-[15px]'>GHC 3,680.25</h1>
+                  <h1 className='font-extrabold text-xl px-[15px]'>{netLiquidAssets}</h1>
                   <div className='px-[15px] text-xs flex justify-between py-[7px] font-semibold mt-[20px]'>
                     <p>Profit/Loss</p>
-                    <p className='text-green-600 font-bold'>+ GHC210.82</p>
+                    <p className='text-green-600 font-bold'>+ GHC0.00</p>
                   </div>
                   <div className='px-[15px] text-xs flex justify-between py-[7px] font-semibold'>
                     <p>Cash</p>
@@ -106,7 +114,7 @@ const Dashboard = () => {
 
                 <div>
                   <div>
-                  <p className='mb-[15px] font-bold text-gray-400'>My Top performing stocks</p>
+                  <p className='mb-[15px] font-bold text-gray-400'>Top performing stocks</p>
                   </div>
                 <div className='flex gap-[15px] mr-[30px]'>
                   {copyOfStkDta.map(item => {
@@ -116,7 +124,6 @@ const Dashboard = () => {
                       
 
                    return ( 
-                      
                     <Link to={`s-details/${item.id}`}>
                     <div key={item.id} className='w-[200px] h-[100px] shadow-lg rounded-lg bg-gray-50 px-[15px] py-[10px] cursor-pointer hover:bg-gray-100'>
                     <div className='flex gap-[10px] items-center'>

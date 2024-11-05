@@ -11,8 +11,8 @@ const LogIn = () => {
   
   const [formData, setFormData] = useState({
     username: '',
-    email: 'demo123@gmail.com',
-    password: 'demo123',
+    email: '',
+    password: '',
     password2: ''
   });
   const [msg, setMsg] = useState('')
@@ -38,7 +38,7 @@ const LogIn = () => {
       const response = await axios.post('http://localhost:8000/users/login', formData);
       console.log(response.data);  // Handle the response from the server (e.g., success message)
       const userId = response.data.user_id;
-      setMsg(response.data.message);
+      setMsg(response.data);
       if(response.data.message === 'Logged in successfully'){
         setMsg('');
         

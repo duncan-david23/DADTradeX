@@ -9,12 +9,14 @@ import { useNavigate } from 'react-router-dom';
 
 const Cryptocurrencies = () => {
   const {dataValues} = useContext(dataContext);
-  const {activeMenu, cryptoData, error, loading, userName, userEmail, userAccountId} = dataValues;
+  const {activeMenu, cryptoData, error, loading, userName, userEmail} = dataValues;
  
   const navigate = useNavigate();
   
+  const userId = localStorage.getItem('userId')
+
   const toDetailsPage = (idx)=> {
-      navigate(`/dashboard/${userAccountId}/c-details/${idx}`)
+      navigate(`/dashboard/${userId}/c-details/${idx}`)
   };
   
 

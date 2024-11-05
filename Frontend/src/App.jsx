@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import LogIn from './pages/LogIn';
 import SignUp from './pages/SignUp';
@@ -14,16 +14,23 @@ import toast, { Toaster } from 'react-hot-toast';
 import SettingsModal from './components/SettingsModal'
 import SupportModal from './components/SupportModal'
 import { dataContext } from './contexts/OtherContexts'
+import GiftClaimModal from './components/GiftClaimModal.jsx';
 
 const App = () => {
 
   const {dataValues} = useContext(dataContext);
-  const {displaySettingsModal, displaySupportModal} = dataValues;
+  const {displaySettingsModal, displaySupportModal, setDisplaySettingsModal, giftClaimModal} = dataValues;
+
+
+  
+
+
   return (
       <>
           <Toaster />
           {displaySettingsModal &&  <SettingsModal/> }
           {displaySupportModal && <SupportModal /> }
+          {giftClaimModal &&  <GiftClaimModal /> }
       <Router>
         <Routes>
           <Route path="/login" element={<LogIn />} />

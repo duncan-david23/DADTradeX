@@ -1,13 +1,16 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import googleIcon from '../assets/googleIcon.webp';
 import image_1 from '../assets/image_1.png';
 import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom';
 import Footer from '../components/Footer.jsx';
 import toast, { Toaster } from 'react-hot-toast';
+import { dataContext } from '../contexts/OtherContexts';
 
 const LogIn = () => {
 
+  const {dataValues} = useContext(dataContext);
+  const {setGiftClaimModal, setIsRegistered} = dataValues;
   
   const [formData, setFormData] = useState({
     username: '',
@@ -40,15 +43,17 @@ const LogIn = () => {
       // POST request to your backend
       let response = await axios.post('http://localhost:8000/users/signup', formData);
       console.log(response.data);  // Handle the response from the server (e.g., success message)
+      setMsg(response.data)
       const userId = response.data.user_id;
       if(response.data.message === 'user has been successfully registered'){
         setMsg('')
         notify()
         navigate(`/dashboard/${userId}`)
+        setIsRegistered(true)
       }
     } catch (error) {
       console.error('There was an error during sign-up:', error);  // Handle any errors
-      setMsg('User with this email already exist')
+      setMsg('network error')
     }
 
     

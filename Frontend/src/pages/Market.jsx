@@ -11,9 +11,10 @@ const Market = () => {
   const {activeMenu, cryptoData, error, loading, userName, userEmail} = dataValues;
 
   const navigate = useNavigate();
+  const userId = localStorage.getItem('userId')
 
   const toDetailsPage = (idx)=> {
-    navigate(`/dashboard/${idx}/s-details/${idx}`)
+    navigate(`/dashboard/${userId}/s-details/${idx}`)
 };
 
 
