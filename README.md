@@ -22,7 +22,7 @@ DADTradeX is a web-based platform for trading stocks and cryptocurrencies. This 
 Follow these steps to get a local copy of DADTradeX running:
 
 ## Clone the Repository:
-git clone <repository-url>
+git clone (https://github.com/duncan-david23/DADTradeX.git)
 
 ## Setup Frontend:
 ### Navigate to the frontend directory
@@ -44,4 +44,5 @@ npm run dev
  
 
 
-## NB: Please don't forget to run both the frontend and the backend on different terminal. 
+## Important Note
+Please ensure both the frontend and backend servers are running in separate terminals for the application to function properly.
