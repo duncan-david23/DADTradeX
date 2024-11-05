@@ -1,11 +1,11 @@
 # DADTradeX
 ## DADTradeX is a web version for trading stocks and cyptos. 
-This simple but interactive web app includes some interesting features, including;
+DADTradeX is a web-based platform for trading stocks and cryptocurrencies. This interactive app includes several key features:
 
-* Submitting a buy or sell order
+* Submitting Buy or Sell Orders: Users can place orders for stocks and cryptocurrencies
 * Real time update to account balance on the frontend when a new user signs up and claim the welcome gift of (GHC120)
-* Fetching Real time crypto data from coingecko and stock data from the Ghana stock exchange
-* User authentication
+* Real-Time Market Data: Fetches up-to-date cryptocurrency data from CoinGecko and stock data from the Ghana Stock Exchange.
+* User Authentication: Secure login for users to access their accounts.
 
 ## Technologies used:
 * Postgresql
@@ -18,13 +18,30 @@ This simple but interactive web app includes some interesting features, includin
 * CORS
 
 
-  ## How to get a copy of the project
+  ## Getting Started
+Follow these steps to get a local copy of DADTradeX running:
 
-  * Clone the repository
-  * cd into frontend folder and npm install
-  * After all dependencies have been installed then npm run dev
-  * cd into backend folder and npm install
-  * After all dependencies have been installed then npm run dev
+## Clone the Repository:
+git clone <repository-url>
+
+## Setup Frontend:
+### Navigate to the frontend directory
+cd frontend
+
+### nstall dependencies:
+npm install
+
+### Start the frontend server:
+npm run dev
+
+## Navigate to the backend directory:
+### cd backend
+Install dependencies:
+npm install
+
+## Start the backend server:
+npm run dev
+ 
 
 
 ## NB: Please don't forget to run both the frontend and the backend on different terminal. 
