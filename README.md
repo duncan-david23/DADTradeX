@@ -25,3 +25,6 @@ This simple but interactive web app includes some interesting features, includin
   * After all dependencies have been installed then npm run dev
   * cd into backend folder and npm install
   * After all dependencies have been installed then npm run dev
+
+
+## NB: Please don't forget to run both the frontend and the backend on different terminal. 
